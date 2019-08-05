@@ -72,19 +72,22 @@ Module Module1
             Using sw As New StreamWriter(File.Open(strFile, FileMode.Append))
                 Try
                     sw.WriteLine("[" & DateTime.Now & "]  " & LogInfo)
+                    WriteLog = 0
                 Catch ex As Exception
-                    Return False
+                    WriteLog = 1
+                    Console.WriteLine(ex.Message)
                 End Try
             End Using
         Else
             Using sw As New StreamWriter(File.Open(strFile, FileMode.OpenOrCreate))
                 Try
                     sw.WriteLine("[" & DateTime.Now & "]  " & LogInfo)
-                Catch
-                    Return False
+                    WriteLog = 0
+                Catch ex As Exception
+                    WriteLog = 1
+                    Console.WriteLine(ex.Message)
                 End Try
             End Using
         End If
-        WriteLog = 0 'TODO -> Modify this so it only returns 0 if it actually wrote something.
     End Function
 End Module
